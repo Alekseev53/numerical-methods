@@ -47,5 +47,22 @@ class TestRichardsonExtrapolation(unittest.TestCase):
         self.assertAlmostEqual(result['f'], f, places=5, msg='calculates f')
         self.assertAlmostEqual(result['c'], c, places=5, msg='calculates c')
 
+    def test_improve_approximation(self):
+            # Define a simple function for testing
+            func = lambda h: 3 * h**2 + 2 * h + 1  # A quadratic function
+
+            # Parameters for testing
+            initial_h = 1
+            t = 2  # factor to reduce the step size
+            k0 = 2  # assumed order of the leading error term
+
+            # Test with a simple quadratic function
+            improved_approximation = RichardsonExtrapolation.improve_approximation(func, initial_h, t, k0)
+            expected_approximation = func(0)  # As h approaches 0, the function should approach its value at 0
+
+            # Check if the improved approximation is close to the expected value
+            self.assertAlmostEqual(improved_approximation, expected_approximation, places=5, msg="Improves approximation for a quadratic function")
+
+
 if __name__ == '__main__':
     unittest.main()
